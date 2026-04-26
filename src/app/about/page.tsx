@@ -1,324 +1,357 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Github, Linkedin, Mail, ExternalLink, ArrowRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { ArrowRight, Download, Linkedin, Mail } from 'lucide-react';
+import { Geist, Geist_Mono } from 'next/font/google';
+import styles from './about.module.css';
 
-export const metadata = {
-  title: 'About | Saikishore - Product Builder & Developer',
-  description: 'I build products that solve real problems. Experienced in full-stack development, product strategy, and AI integration. Open to exciting opportunities.',
+const geistSans = Geist({ subsets: ['latin'], weight: ['400', '500', '600', '700'] });
+const geistMono = Geist_Mono({ subsets: ['latin'], weight: ['400', '500', '600'] });
+
+export const metadata: Metadata = {
+  title: 'About | Sai Kishore Gollakota',
+  description:
+    'Building scalable products at the intersection of technology and customer value. Product Owner with 15+ years across software, networking, and cloud.',
 };
 
 export default function AboutPage() {
-  const skillCategories = [
-    {
-      category: 'Product Strategy',
-      skills: ['Go-to-Market', 'User Research', 'Product Roadmapping', 'Competitive Analysis', 'Metrics & Analytics', 'Stakeholder Management']
-    },
-    {
-      category: 'Frontend Development',
-      skills: ['React', 'Next.js', 'TypeScript', 'TailwindCSS', 'UI/UX Design', 'Accessibility (WCAG)']
-    },
-    {
-      category: 'Backend & Infrastructure',
-      skills: ['Firebase', 'Firestore', 'Backend APIs', 'Cloud Functions', 'Database Design', 'DevOps']
-    },
-    {
-      category: 'AI & Emerging Tech',
-      skills: ['Google Genkit', 'LLM Integration', 'Prompt Engineering', 'Generative UI', 'AI Product Thinking']
-    },
+  const navLinks = [
+    { label: 'About', href: '#about' },
+    { label: 'Experience', href: '#experience' },
+    { label: 'Work', href: '#work' },
+    { label: 'Skills', href: '#skills' },
+    { label: 'Thinking', href: '#thinking' },
+    { label: 'Contact', href: '#contact' },
+  ];
+
+  const highlights = [
+    'Led cross-functional teams to deliver scalable cloud and networking solutions',
+    'Improved system performance, release efficiency, and developer productivity',
+    'Translated ambiguous business needs into clear product strategies',
   ];
 
   const experience = [
     {
-      period: '2024 - Present',
-      title: 'Founder / Product Builder',
-      description: 'Building ShopWise - a full-stack price comparison platform with 50K+ users. Responsible for product strategy, technical architecture, and growth.',
-      highlights: ['Full-stack development', 'Product strategy & GTM', 'Real-time data aggregation']
+      title: 'Product Owner',
+      metrics: ['20% Faster Releases', 'Sprint Predictability ↑'],
+      company: 'Cisco Systems · Oct 2023 – Present · Bengaluru',
+      points: [
+        'Own product strategy and roadmap for Cisco Commerce & CX Cloud modules',
+        'Led a team of engineers to define acceptance criteria and streamline execution',
+        'Prioritized platform improvements to remove friction and accelerate engineering velocity',
+      ],
     },
     {
-      period: '2023 - 2024',
-      title: 'Senior Product Manager / Engineer',
-      description: 'Led product development across multiple projects. Combined PM thinking with technical execution.',
-      highlights: ['Product roadmapping', 'Team collaboration', 'Cross-functional leadership']
+      title: 'Scrum Master / Senior QA Lead',
+      metrics: ['25% Performance Gain', 'K8s Scalability'],
+      company: 'Cisco Systems · Apr 2021 – Oct 2023',
+      points: [
+        'Partnered with Product Managers to refine backlog and translate business needs into actionable user stories',
+        'Defined release strategies and testing frameworks for business-critical applications',
+        'Enabled data-driven planning using Agile metrics like velocity and burndown',
+      ],
     },
     {
-      period: '2022 - 2023',
-      title: 'Full-Stack Developer',
-      description: 'Built web and mobile applications. Focus on user experience and performance optimization.',
-      highlights: ['React & Next.js', 'Mobile-first design', 'Performance optimization']
+      title: 'Lead QA Engineer',
+      metrics: ['30K+ Upgrades', '100% API Coverage'],
+      company: 'Cisco Systems · Dec 2017 – Apr 2021',
+      points: [
+        'Led a team of 8 engineers, driving test strategy and execution',
+        'Delivered 30,000+ upgrades in live customer environments',
+        'Built automation frameworks achieving 100% API coverage',
+      ],
+    },
+    {
+      title: 'Senior Test Engineer',
+      metrics: [],
+      company: 'Cisco Systems · Mar 2011 – Dec 2017',
+      points: [
+        'Owned multiple modules ensuring high-quality delivery aligned with business requirements',
+        'Specialized in defect triaging and production issue resolution',
+      ],
     },
   ];
 
-  const featuredProjects = [
+  const caseStudies = [
     {
-      id: 'shopwise',
-      title: 'ShopWise',
-      description: 'E-commerce price comparison platform with real-time tracking',
-      tech: ['Next.js', 'Firebase', 'Real-time DB'],
-      link: '/shopwise',
-      featured: true,
+      eyebrow: ['AI Content Platform', 'AI Workflow'],
+      title: 'XCopyAI',
+      description:
+        'Simplifying AI-driven content creation workflows and improving user productivity through intelligent automation.',
+      href: 'https://www.producttalent.com/sai-kishore-gollakota/projects/xcopyai/',
     },
     {
-      id: 'prototypes',
-      title: 'Interactive Prototypes',
-      description: 'Phone comparison, BMC visualization, journey mapping',
-      tech: ['React', 'Visualization', 'Design'],
-      link: '/projects',
+      eyebrow: ['EdTech Learning Platform', 'EdTech UX'],
+      title: 'MikroLearn',
+      description:
+        'Enhancing engagement and knowledge retention through bite-sized, micro-learning experiences designed for scale.',
+      href: 'https://www.producttalent.com/sai-kishore-gollakota/projects/mikrolearn/',
+    },
+  ];
+
+  const skillCategories = [
+    {
+      title: 'Product Strategy',
+      skills: ['Roadmapping & Vision', 'Customer-Centric Thinking', 'Problem Discovery'],
     },
     {
-      id: 'campaign-ai',
-      title: 'AI Campaign Generator',
-      description: 'AI-powered marketing campaign generation tool',
-      tech: ['Genkit', 'LLM Integration', 'Next.js'],
-      link: '/campaign-onboarding',
+      title: 'Execution & Delivery',
+      skills: ['Agile / Scrum', 'Backlog Prioritization', 'Release Management'],
+    },
+    {
+      title: 'Technical Depth',
+      skills: ['Cloud (AWS)', 'Networking Systems', 'Kubernetes', 'API & Automation'],
+    },
+    {
+      title: 'Leadership',
+      skills: ['Stakeholder Management', 'Cross-functional Leadership', 'Team Building & Mentorship'],
+    },
+  ];
+
+  const thinking = [
+    {
+      title: 'Why Developer Experience is a Product Problem',
+      description:
+        'Great products are not just customer-facing. Internal developer experience directly impacts speed, quality, and innovation.',
+    },
+    {
+      title: "Execution is a Product Manager's Superpower",
+      description:
+        'Strategy without execution is just intent. The real impact comes from disciplined delivery.',
+    },
+    {
+      title: 'Metrics That Actually Matter',
+      description:
+        "Velocity doesn't matter if outcomes don't improve. Focus on impact metrics, not activity metrics.",
     },
   ];
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-4xl px-4 py-16 sm:px-6">
-      {/* Hero Section */}
-      <section className="mb-20 space-y-6">
-        <div>
-          <h1 className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl">
-            Hi, I'm Saikishore
+    <main className={`${geistSans.className} relative overflow-hidden bg-[#05080f] text-slate-50`}>
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(14,165,233,0.22),transparent_28%),radial-gradient(circle_at_88%_10%,rgba(59,130,246,0.14),transparent_30%),radial-gradient(circle_at_50%_80%,rgba(14,165,233,0.1),transparent_32%)]" />
+      <div className={`${styles.gridOverlay} pointer-events-none absolute inset-0 opacity-60`} />
+
+      <div className="relative mx-auto w-full max-w-6xl px-4 pb-16 pt-10 sm:px-6 lg:px-8 lg:pt-14">
+        <nav className="sticky top-[68px] z-30 mb-14 rounded-lg border border-slate-800/90 bg-[#05080f]/85 px-4 py-3 backdrop-blur md:px-6">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <Link href="/" className="text-sm font-bold tracking-tight text-slate-100">
+              SKG.
+            </Link>
+            <div className={`${geistMono.className} flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.15em] text-slate-400`}>
+              {navLinks.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-md px-2 py-1 transition-colors hover:text-slate-100"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </nav>
+
+        <section className={`${styles.reveal} relative mb-20 min-h-[62vh] border-b border-slate-800 pb-16`}>
+          <div className="mb-7 flex flex-wrap gap-3 text-[11px] uppercase tracking-[0.17em] text-slate-400">
+            <span className={`${geistMono.className} rounded border border-slate-700 bg-slate-900/60 px-3 py-1`}>15+ Years</span>
+            <span className={`${geistMono.className} rounded border border-slate-700 bg-slate-900/60 px-3 py-1`}>Cisco</span>
+            <span className={`${geistMono.className} rounded border border-slate-700 bg-slate-900/60 px-3 py-1`}>
+              Scalable Systems
+            </span>
+          </div>
+
+          <h1 className="max-w-4xl text-balance text-4xl font-bold leading-tight tracking-[-0.03em] text-slate-50 sm:text-5xl">
+            Building Scalable Products at the Intersection of Technology and Customer Value
           </h1>
-          <p className="mt-4 text-xl text-muted-foreground max-w-2xl leading-relaxed">
-            I'm a product builder and full-stack developer passionate about creating tools that solve real problems. I combine technical execution with strategic thinking to build products people love.
+
+          <p className={`${geistMono.className} mt-6 text-sm uppercase tracking-[0.16em] text-sky-300`}>
+            Product Owner at Cisco · 15+ Years in Software, Networking & Cloud
           </p>
-        </div>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-wrap gap-3">
-          <a
-            href="https://github.com/gvssaikishore"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium text-card-foreground hover:bg-accent/10 transition"
-          >
-            <Github className="h-4 w-4" />
-            GitHub
-            <ExternalLink className="h-3 w-3" />
-          </a>
-          <a
-            href="https://linkedin.com/in/saikishore"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium text-card-foreground hover:bg-accent/10 transition"
-          >
-            <Linkedin className="h-4 w-4" />
-            LinkedIn
-            <ExternalLink className="h-3 w-3" />
-          </a>
-          <Link href="#contact">
-            <Button className="bg-primary hover:bg-primary/90">
-              Get in Touch
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section className="mb-20 space-y-6">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight text-foreground mb-6">About Me</h2>
-          <div className="space-y-4 text-muted-foreground leading-relaxed">
-            <p>
-              I'm a builder at heart. Whether it's coding, product strategy, or design, I'm driven by the question: <strong className="text-foreground">"How do I make this better for users?"</strong>
-            </p>
-            <p>
-              I started my journey as a developer, but I discovered I loved thinking about *why* we build things as much as *how* we build them. This led me to product management, where I could combine technical knowledge with strategic thinking.
-            </p>
-            <p>
-              Today, I wear multiple hats:
-            </p>
-          </div>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-3">
-          <div className="rounded-lg border border-border bg-card p-4">
-            <h3 className="font-semibold text-foreground mb-2">👨‍💻 Developer</h3>
-            <p className="text-sm text-muted-foreground">
-              Full-stack development with React, Next.js, and Firebase. I care about code quality and user experience.
-            </p>
-          </div>
-          <div className="rounded-lg border border-border bg-card p-4">
-            <h3 className="font-semibold text-foreground mb-2">📊 Product Strategist</h3>
-            <p className="text-sm text-muted-foreground">
-              Market analysis, user research, and GTM planning. I build products based on real problems, not assumptions.
-            </p>
-          </div>
-          <div className="rounded-lg border border-border bg-card p-4">
-            <h3 className="font-semibold text-foreground mb-2">🚀 Builder</h3>
-            <p className="text-sm text-muted-foreground">
-              End-to-end product ownership. From problem definition to launch and beyond.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section className="mb-20 space-y-6">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground">Skills & Expertise</h2>
-        
-        <div className="grid gap-6 md:grid-cols-2">
-          {skillCategories.map((category) => (
-            <div key={category.category} className="rounded-lg border border-border bg-card p-6">
-              <h3 className="font-semibold text-foreground mb-4">{category.category}</h3>
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <Badge key={skill} variant="outline" className="text-xs">
-                    {skill}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Experience Section */}
-      <section className="mb-20 space-y-6">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground">Experience</h2>
-        
-        <div className="space-y-6">
-          {experience.map((exp, idx) => (
-            <div key={idx} className="rounded-lg border border-border bg-card p-6">
-              <div className="flex items-start justify-between mb-2">
-                <div>
-                  <h3 className="font-semibold text-foreground text-lg">{exp.title}</h3>
-                  <p className="text-sm text-primary font-medium">{exp.period}</p>
-                </div>
-              </div>
-              <p className="text-muted-foreground mb-4">{exp.description}</p>
-              <div className="flex flex-wrap gap-2">
-                {exp.highlights.map((highlight) => (
-                  <Badge key={highlight} variant="outline" className="text-xs">
-                    {highlight}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Featured Projects */}
-      <section className="mb-20 space-y-6">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight text-foreground mb-2">Featured Work</h2>
-          <p className="text-muted-foreground">
-            Here's a selection of projects I'm proud of. <Link href="/projects" className="text-primary hover:underline">View all projects →</Link>
+          <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
+            Specializing in turning complex systems into reliable, high-impact products, driving execution excellence,
+            improving developer velocity, and delivering measurable business outcomes.
           </p>
-        </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {featuredProjects.map((project) => (
-            <Link key={project.id} href={project.link}>
-              <div className="group h-full rounded-lg border border-border bg-card p-6 hover:border-primary/50 transition cursor-pointer">
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="font-semibold text-foreground group-hover:text-primary transition">
-                    {project.title}
-                  </h3>
-                  {project.featured && (
-                    <Badge className="bg-primary/20 text-primary text-xs">Featured</Badge>
-                  )}
+          <div className={`${styles.stagger} mt-9 flex flex-wrap gap-4`}>
+            <a
+              href="#work"
+              className={`${geistMono.className} inline-flex items-center gap-2 rounded border border-slate-700 bg-slate-900/80 px-4 py-3 text-[11px] uppercase tracking-[0.15em] text-slate-200 transition hover:border-sky-400/80 hover:text-sky-200`}
+            >
+              View My Work
+              <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+            <a
+              href="#contact"
+              className={`${geistMono.className} inline-flex items-center gap-2 rounded border border-sky-400/60 bg-sky-500/10 px-4 py-3 text-[11px] uppercase tracking-[0.15em] text-sky-200 transition hover:bg-sky-500/20`}
+            >
+              Download Resume
+              <Download className="h-3.5 w-3.5" />
+            </a>
+          </div>
+        </section>
+
+        <section id="about" className={`${styles.reveal} mb-20 border-b border-slate-800 pb-16`}>
+          <p className={`${geistMono.className} mb-3 text-xs uppercase tracking-[0.15em] text-slate-500`}>About</p>
+          <h2 className="text-3xl font-bold tracking-[-0.03em] text-slate-50 sm:text-4xl">
+            From Systems Engineering to Product Leadership
+          </h2>
+          <div className="mt-8 max-w-4xl space-y-5 text-slate-300">
+            <p>
+              Product Owner with 15+ years of experience across software engineering, quality assurance, and product
+              leadership, currently driving product initiatives at Cisco.
+            </p>
+            <p>
+              The journey from QA to Product has shaped a systems-first mindset: deeply understanding constraints,
+              user impact, and the bridge between business goals and engineering execution.
+            </p>
+            <ul className="space-y-3">
+              {highlights.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-sky-400" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="text-slate-100">Not just shipping features. Solving business problems with measurable impact.</p>
+          </div>
+        </section>
+
+        <section id="experience" className={`${styles.reveal} mb-20 border-b border-slate-800 pb-16`}>
+          <p className={`${geistMono.className} mb-3 text-xs uppercase tracking-[0.15em] text-slate-500`}>Experience</p>
+          <h2 className="text-3xl font-bold tracking-[-0.03em] text-slate-50 sm:text-4xl">System Log</h2>
+          <div className="mt-8 space-y-5">
+            {experience.map((item) => (
+              <article
+                key={item.title}
+                className="rounded-lg border border-slate-800 bg-slate-950/70 p-6 transition-colors hover:border-sky-500/50"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <h3 className="text-xl font-semibold tracking-tight text-slate-100">{item.title}</h3>
+                  <div className={`${geistMono.className} flex flex-wrap gap-2 text-[10px] uppercase tracking-[0.16em] text-sky-300`}>
+                    {item.metrics.map((metric) => (
+                      <span key={metric} className="rounded border border-sky-500/50 bg-sky-500/10 px-2 py-1">
+                        {metric}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-1">
-                  {project.tech.map((t) => (
-                    <Badge key={t} variant="outline" className="text-xs">
-                      {t}
-                    </Badge>
+                <p className={`${geistMono.className} mt-3 text-xs uppercase tracking-[0.14em] text-slate-400`}>{item.company}</p>
+                <ul className="mt-4 space-y-2 text-slate-300">
+                  {item.points.map((point) => (
+                    <li key={point} className="flex gap-3">
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-500" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="work" className={`${styles.reveal} mb-20 border-b border-slate-800 pb-16`}>
+          <p className={`${geistMono.className} mb-3 text-xs uppercase tracking-[0.15em] text-slate-500`}>Case Studies</p>
+          <h2 className="text-3xl font-bold tracking-[-0.03em] text-slate-50 sm:text-4xl">My Work</h2>
+          <p className="mt-4 max-w-4xl text-slate-300">
+            Product thinking and solutions documented in detail. Each case study showcases approach to problem-solving,
+            strategy, and execution.
+          </p>
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            {caseStudies.map((item) => (
+              <a
+                key={item.title}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group rounded-lg border border-slate-800 bg-slate-950/70 p-6 transition hover:-translate-y-0.5 hover:border-sky-500/60"
+              >
+                <div className={`${geistMono.className} flex flex-wrap gap-2 text-[10px] uppercase tracking-[0.16em] text-sky-300`}>
+                  {item.eyebrow.map((tag) => (
+                    <span key={tag}>{tag}</span>
                   ))}
                 </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        <Link href="/projects">
-          <Button variant="outline" className="w-full">
-            View All Projects
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
-      </section>
-
-      {/* Current Focus & Interests */}
-      <section className="mb-20 space-y-6">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground">What I'm Focused On</h2>
-        
-        <div className="grid gap-4 md:grid-cols-2">
-          <div className="rounded-lg border border-border/40 bg-gradient-to-br from-card to-card/50 p-6">
-            <h3 className="font-semibold text-foreground mb-2">🎯 Current Priority</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Scaling ShopWise to 100K+ users and exploring new verticals beyond price comparison. Particularly interested in solving problems at the intersection of commerce and AI.
-            </p>
+                <h3 className="mt-3 flex items-center gap-2 text-2xl font-semibold text-slate-100 transition group-hover:text-sky-200">
+                  {item.title}
+                  <ArrowRight className="h-4 w-4" />
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-slate-300">{item.description}</p>
+              </a>
+            ))}
           </div>
-          <div className="rounded-lg border border-border/40 bg-gradient-to-br from-card to-card/50 p-6">
-            <h3 className="font-semibold text-foreground mb-2">🧠 Actively Learning</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              AI/ML integration in consumer products, advanced product strategy frameworks, and emerging technologies that create new product opportunities.
-            </p>
-          </div>
-          <div className="rounded-lg border border-border/40 bg-gradient-to-br from-card to-card/50 p-6">
-            <h3 className="font-semibold text-foreground mb-2">💼 Open To</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Speaking engagements, advisory roles, collaborations on product strategy or technical projects, and conversations with fellow builders.
-            </p>
-          </div>
-          <div className="rounded-lg border border-border/40 bg-gradient-to-br from-card to-card/50 p-6">
-            <h3 className="font-semibold text-foreground mb-2">📚 Sharing Knowledge</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Writing about product strategy, prototyping, building with AI, and lessons from launching products. Check out my <Link href="/posts" className="text-primary hover:underline">blog</Link>.
-            </p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Blog CTA */}
-      <section className="mb-20 rounded-lg border border-border/40 bg-card p-8">
-        <h2 className="text-2xl font-bold text-foreground mb-3">Read My Writing</h2>
-        <p className="text-muted-foreground mb-6">
-          I write about product development, prototyping, strategy, and the lessons I've learned building products. 
-        </p>
-        <Link href="/posts">
-          <Button className="bg-primary hover:bg-primary/90">
-            Read Blog
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
-      </section>
+        <section id="skills" className={`${styles.reveal} mb-20 border-b border-slate-800 pb-16`}>
+          <p className={`${geistMono.className} mb-3 text-xs uppercase tracking-[0.15em] text-slate-500`}>Capabilities</p>
+          <h2 className="text-3xl font-bold tracking-[-0.03em] text-slate-50 sm:text-4xl">Skills & Expertise</h2>
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            {skillCategories.map((category) => (
+              <article key={category.title} className="rounded-lg border border-slate-800 bg-slate-950/70 p-6">
+                <h3 className={`${geistMono.className} text-sm uppercase tracking-[0.14em] text-slate-200`}>{category.title}</h3>
+                <ul className="mt-4 space-y-2 text-slate-300">
+                  {category.skills.map((skill) => (
+                    <li key={skill} className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-slate-500" />
+                      <span>{skill}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+          <div className="mt-7 rounded-lg border border-slate-800 bg-slate-950/70 p-6">
+            <p className={`${geistMono.className} text-xs uppercase tracking-[0.15em] text-slate-500`}>Certifications</p>
+            <div className="mt-3 flex flex-wrap gap-3 text-sm text-slate-200">
+              <span className="rounded border border-slate-700 px-3 py-2">AWS Certified Solutions Architect – Associate</span>
+              <span className="rounded border border-slate-700 px-3 py-2">Cisco Certified Network Associate (CCNA)</span>
+            </div>
+          </div>
+        </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="rounded-lg border border-primary/20 bg-primary/5 p-8 text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground mb-3">Let's Connect</h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
-          I'm always interested in discussing product ideas, technical challenges, collaborations, or just connecting with fellow builders. Feel free to reach out!
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="mailto:hello@saikishore.dev"
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition"
-          >
-            <Mail className="h-4 w-4" />
-            Email Me
-          </a>
-          <a
-            href="https://linkedin.com/in/saikishore"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-card px-6 py-3 text-sm font-medium text-card-foreground hover:bg-accent/10 transition"
-          >
-            <Linkedin className="h-4 w-4" />
-            Connect on LinkedIn
-            <ExternalLink className="h-3 w-3" />
-          </a>
-        </div>
-      </section>
+        <section id="thinking" className={`${styles.reveal} mb-20 border-b border-slate-800 pb-16`}>
+          <p className={`${geistMono.className} mb-3 text-xs uppercase tracking-[0.15em] text-slate-500`}>Perspectives</p>
+          <h2 className="text-3xl font-bold tracking-[-0.03em] text-slate-50 sm:text-4xl">Product Thinking</h2>
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            {thinking.map((item) => (
+              <article key={item.title} className="rounded-lg border border-slate-800 bg-slate-950/70 p-6">
+                <h3 className="text-lg font-semibold leading-snug text-slate-100">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-300">{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="contact" className={`${styles.reveal} mb-6 rounded-lg border border-slate-700/80 bg-slate-950/80 p-8 sm:p-10`}>
+          <p className={`${geistMono.className} mb-3 text-xs uppercase tracking-[0.15em] text-slate-500`}>Connect</p>
+          <h2 className="text-3xl font-bold tracking-[-0.03em] text-slate-50 sm:text-4xl">
+            Let&apos;s build impactful products together.
+          </h2>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <a
+              href="mailto:gvssaikishore@gmail.com"
+              className="inline-flex items-center gap-2 rounded border border-sky-500/60 bg-sky-500/10 px-4 py-3 text-sky-200 transition hover:bg-sky-500/20"
+            >
+              <Mail className="h-4 w-4" />
+              gvssaikishore@gmail.com
+            </a>
+            <a
+              href="https://www.linkedin.com/in/sai-kishore-gollakota/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded border border-slate-700 bg-slate-900 px-4 py-3 text-slate-200 transition hover:border-slate-500"
+            >
+              <Linkedin className="h-4 w-4" />
+              LinkedIn
+            </a>
+          </div>
+        </section>
+
+        <footer className={`${geistMono.className} pb-4 pt-6 text-[11px] uppercase tracking-[0.14em] text-slate-500`}>
+          <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-800 pt-5">
+            <span>Portfolio Status: Operational</span>
+            <span>Last Updated: April 26, 2026</span>
+          </div>
+        </footer>
+      </div>
     </main>
   );
 }
