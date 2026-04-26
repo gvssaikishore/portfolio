@@ -1,25 +1,11 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { getAllPostsMeta } from '@/lib/blog';
+import BlogPostList from '@/components/blog-post-list';
 
 export const metadata: Metadata = {
   title: 'Blog | ShopWise',
   description: 'Notes, learnings, and updates.',
 };
-
-function formatDate(dateValue: string): string {
-  const parsed = Date.parse(dateValue);
-
-  if (Number.isNaN(parsed)) {
-    return dateValue;
-  }
-
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(new Date(parsed));
-}
 
 export default async function PostsPage() {
   const posts = await getAllPostsMeta();
@@ -31,6 +17,9 @@ export default async function PostsPage() {
         <p className="mt-3 text-base text-muted-foreground">
           Write posts in the <code>posts/</code> folder using Markdown.
         </p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Use <code>draft: true</code> in frontmatter to keep a post hidden in production.
+        </p>
       </header>
 
       {posts.length === 0 ? (
@@ -38,31 +27,7 @@ export default async function PostsPage() {
           No posts yet. Add your first Markdown file inside <code>posts/</code>.
         </div>
       ) : (
-        <section className="space-y-5">
-          {posts.map((post) => (
-            <article key={post.slug} className="rounded-lg border border-border bg-card p-6 text-card-foreground">
-              <p className="text-sm text-muted-foreground">{formatDate(post.date)}</p>
-              <h2 className="mt-2 text-2xl font-bold tracking-tight">
-                <Link className="hover:underline" href={`/posts/${post.slug}`}>
-                  {post.title}
-                </Link>
-              </h2>
-              {post.summary ? <p className="mt-3 text-base text-muted-foreground">{post.summary}</p> : null}
-              {post.tags.length > 0 ? (
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {post.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              ) : null}
-            </article>
-          ))}
-        </section>
+        <BlogPostList posts={posts} />
       )}
     </main>
   );

@@ -5,6 +5,7 @@ summary: "Copy this post and update it each week to keep writing easy and consis
 tags:
   - writing
   - template
+draft: true
 ---
 
 Use this structure for weekly updates:

@@ -11,6 +11,7 @@ This project now includes a simple Markdown blog setup:
 - Blog index page: `/posts`
 - Blog post page: `/posts/[slug]`
 - Content folder: `posts/`
+- Search and pagination on the posts page
 
 Create a new file inside `posts/` with `.md` or `.mdx` extension.
 
@@ -24,6 +25,7 @@ summary: "One sentence summary"
 tags:
 	- writing
 	- notes
+draft: false
 ---
 
 Your Markdown content starts here.
@@ -32,5 +34,10 @@ Your Markdown content starts here.
 Slug rules:
 
 - `posts/my-first-post.md` becomes `/posts/my-first-post/`
+
+Draft behavior:
+
+- Set `draft: true` to hide a post from production builds
+- Draft posts are visible during local development
 
 Starter examples are available in the `posts/` folder.

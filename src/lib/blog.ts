@@ -11,6 +11,7 @@ export type BlogPostMeta = {
   date: string;
   summary: string;
   tags: string[];
+  draft: boolean;
 };
 
 export type BlogPost = BlogPostMeta & {
@@ -40,6 +41,18 @@ function isDateValue(value: string): boolean {
   return !Number.isNaN(Date.parse(value));
 }
 
+function isDraftValue(value: unknown): boolean {
+  return value === true;
+}
+
+function shouldIncludePost(draft: boolean): boolean {
+  if (process.env.NODE_ENV === 'production') {
+    return !draft;
+  }
+
+  return true;
+}
+
 function parsePost(slug: string, source: string): BlogPost {
   const { data, content } = matter(source);
   const title = typeof data.title === 'string' ? data.title : slug;
@@ -48,6 +61,7 @@ function parsePost(slug: string, source: string): BlogPost {
     : new Date(0).toISOString();
   const summary = typeof data.summary === 'string' ? data.summary : '';
   const tags = normalizeTags(data.tags);
+  const draft = isDraftValue(data.draft);
 
   return {
     slug,
@@ -55,6 +69,7 @@ function parsePost(slug: string, source: string): BlogPost {
     date,
     summary,
     tags,
+    draft,
     content,
   };
 }
@@ -62,9 +77,10 @@ function parsePost(slug: string, source: string): BlogPost {
 export async function getPostSlugs(): Promise<string[]> {
   try {
     const files = await fs.readdir(POSTS_DIRECTORY);
-    return files
-      .filter((fileName) => isMarkdownFile(fileName))
-      .map((fileName) => fileName.replace(MARKDOWN_FILE_REGEX, ''));
+    const markdownFiles = files.filter((fileName) => isMarkdownFile(fileName));
+    const posts = await Promise.all(markdownFiles.map((fileName) => loadPostByFileName(fileName)));
+
+    return posts.filter((post) => shouldIncludePost(post.draft)).map((post) => post.slug);
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
       return [];
@@ -101,6 +117,7 @@ export async function getAllPostsMeta(): Promise<BlogPostMeta[]> {
   );
 
   return posts
+    .filter((post) => shouldIncludePost(post.draft))
     .sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
     .map(({ content, ...meta }) => meta);
 }
@@ -110,7 +127,12 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
 
   for (const fileName of fileCandidates) {
     try {
-      return await loadPostByFileName(fileName);
+      const post = await loadPostByFileName(fileName);
+      if (!shouldIncludePost(post.draft)) {
+        return null;
+      }
+
+      return post;
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
         continue;
