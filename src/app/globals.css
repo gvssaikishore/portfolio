@@ -82,3 +82,45 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .blog-content {
+    @apply text-base leading-7 text-foreground;
+  }
+
+  .blog-content h2 {
+    @apply mt-8 text-2xl font-bold tracking-tight;
+  }
+
+  .blog-content h3 {
+    @apply mt-6 text-xl font-semibold tracking-tight;
+  }
+
+  .blog-content p {
+    @apply mt-4;
+  }
+
+  .blog-content ul {
+    @apply mt-4 list-disc space-y-2 pl-6;
+  }
+
+  .blog-content ol {
+    @apply mt-4 list-decimal space-y-2 pl-6;
+  }
+
+  .blog-content a {
+    @apply font-medium text-primary underline underline-offset-4;
+  }
+
+  .blog-content code {
+    @apply rounded bg-muted px-1.5 py-0.5 text-sm;
+  }
+
+  .blog-content pre {
+    @apply mt-4 overflow-x-auto rounded-lg bg-muted p-4 text-sm;
+  }
+
+  .blog-content blockquote {
+    @apply mt-4 border-l-4 border-border pl-4 italic text-muted-foreground;
+  }
+}
