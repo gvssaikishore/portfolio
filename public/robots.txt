@@ -1,0 +1,10 @@
+# robots.txt for Saikishore Portfolio
+User-agent: *
+Allow: /
+Disallow: /admin
+
+# Crawl delay
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://saikishore.dev/sitemap.xml
