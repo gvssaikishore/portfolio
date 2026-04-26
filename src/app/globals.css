@@ -124,3 +124,162 @@
     @apply mt-4 border-l-4 border-border pl-4 italic text-muted-foreground;
   }
 }
+
+/* Theme Color System - Hex Colors Override */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  
+  /* Light Theme (default) */
+  :root {
+    --primary: #3b82f6;
+    --primary-rgb: 59, 130, 246;
+    --secondary: #8b5cf6;
+    --accent: #ec4899;
+    --background: #ffffff;
+    --foreground: #1f2937;
+    --muted: #f3f4f6;
+    --muted-foreground: #6b7280;
+    --border: #e5e7eb;
+    --card: #f9fafb;
+    --card-foreground: #111827;
+  }
+  
+  /* Dark Theme */
+  [data-theme="dark"] {
+    color-scheme: dark;
+    --primary: #60a5fa;
+    --primary-rgb: 96, 165, 250;
+    --secondary: #a78bfa;
+    --accent: #f472b6;
+    --background: #0f172a;
+    --foreground: #f1f5f9;
+    --muted: #1e293b;
+    --muted-foreground: #cbd5e1;
+    --border: #334155;
+    --card: #1e293b;
+    --card-foreground: #f1f5f9;
+  }
+  
+  /* Minimal Theme */
+  [data-theme="minimal"] {
+    color-scheme: light;
+    --primary: #000000;
+    --primary-rgb: 0, 0, 0;
+    --secondary: #404040;
+    --accent: #262626;
+    --background: #ffffff;
+    --foreground: #000000;
+    --muted: #f5f5f5;
+    --muted-foreground: #737373;
+    --border: #e5e5e5;
+    --card: #fafafa;
+    --card-foreground: #000000;
+  }
+  
+  /* Tech Theme */
+  [data-theme="tech"] {
+    color-scheme: dark;
+    --primary: #00d9ff;
+    --primary-rgb: 0, 217, 255;
+    --secondary: #0099ff;
+    --accent: #ff006e;
+    --background: #0a0e27;
+    --foreground: #e0f7ff;
+    --muted: #1a1f3a;
+    --muted-foreground: #7dd3fc;
+    --border: #0099ff;
+    --card: #1a1f3a;
+    --card-foreground: #e0f7ff;
+  }
+  
+  /* Nature Theme */
+  [data-theme="nature"] {
+    color-scheme: light;
+    --primary: #16a34a;
+    --primary-rgb: 22, 163, 74;
+    --secondary: #ea580c;
+    --accent: #0891b2;
+    --background: #f5f3ff;
+    --foreground: #1b4332;
+    --muted: #e8f5e9;
+    --muted-foreground: #558b2f;
+    --border: #c8e6c9;
+    --card: #f1f8f5;
+    --card-foreground: #1b4332;
+  }
+  
+  /* Sunset Theme */
+  [data-theme="sunset"] {
+    color-scheme: dark;
+    --primary: #f97316;
+    --primary-rgb: 249, 115, 22;
+    --secondary: #dc2626;
+    --accent: #7c3aed;
+    --background: #1f0f0f;
+    --foreground: #fef3c7;
+    --muted: #42251b;
+    --muted-foreground: #fed7aa;
+    --border: #ea580c;
+    --card: #3a2415;
+    --card-foreground: #fef3c7;
+  }
+}
+
+/* Apply theme colors as CSS variables for dynamic styling */
+html {
+  --primary: var(--primary, #3b82f6);
+  --secondary: var(--secondary, #8b5cf6);
+  --accent: var(--accent, #ec4899);
+  --background: var(--background, #ffffff);
+  --foreground: var(--foreground, #1f2937);
+  --muted: var(--muted, #f3f4f6);
+  --muted-foreground: var(--muted-foreground, #6b7280);
+  --border: var(--border, #e5e7eb);
+  --card: var(--card, #f9fafb);
+  --card-foreground: var(--card-foreground, #111827);
+}
+
+/* Color-based Tailwind overrides using CSS variables */
+@layer components {
+  .bg-primary {
+    background-color: var(--primary);
+  }
+  
+  .bg-secondary {
+    background-color: var(--secondary);
+  }
+  
+  .bg-accent {
+    background-color: var(--accent);
+  }
+  
+  .bg-background {
+    background-color: var(--background);
+  }
+  
+  .bg-card {
+    background-color: var(--card);
+  }
+  
+  .bg-muted {
+    background-color: var(--muted);
+  }
+  
+  .text-primary {
+    color: var(--primary);
+  }
+  
+  .text-foreground {
+    color: var(--foreground);
+  }
+  
+  .text-card-foreground {
+    color: var(--card-foreground);
+  }
+  
+  .border-border {
+    border-color: var(--border);
+  }
+}

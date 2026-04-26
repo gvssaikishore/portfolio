@@ -4,6 +4,7 @@ import { Toaster } from '@/components/ui/toaster';
 import Feedback from '@/components/feedback';
 import Navbar from '@/components/navbar';
 import { Footer } from '@/components/footer';
+import { ThemeProvider } from '@/context/theme-context';
 
 export const metadata: Metadata = {
   title: {
@@ -76,12 +77,14 @@ export default function RootLayout({
           {/* Google Ads */}
           <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3861959107227469" crossOrigin="anonymous"></script>
       </head>
-      <body className="font-body antialiased">
-        <Navbar />
-        {children}
-        <Footer />
-        <Toaster />
-        <Feedback />
+      <body className="bg-background text-foreground transition-colors duration-200">
+        <ThemeProvider>
+          <Navbar />
+          {children}
+          <Footer />
+          <Toaster />
+          <Feedback />
+        </ThemeProvider>
       </body>
     </html>
   );
